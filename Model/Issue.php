@@ -11,12 +11,17 @@ class Issue
     /** @var  \DateTime */
     protected $created;
 
+    protected $description;
+
     /** @var  IssueType */
     protected $issueType;
 
     protected $key;
 
     protected $labels;
+
+    /** @var  Project */
+    protected $project;
 
     /** @var  User */
     protected $reporter;
@@ -39,13 +44,30 @@ class Issue
     {
         $this->assignee = new User($json['fields']['assignee']);
         $this->created = new \DateTime($json['fields']['created']);
+        $this->description = $json['fields']['description'];
         $this->issueType = new IssueType($json['fields']['issuetype']);
         $this->key = $json['key'];
         $this->labels = $json['fields']['labels'];
+        $this->project = new Project($json['fields']['project']);
         $this->reporter = new User($json['fields']['reporter']);
         $this->status = new IssueStatus($json['fields']['status']);
         $this->summary = $json['fields']['summary'];
         $this->updated = new \DateTime($json['fields']['updated']);
+    }
+
+    public function toJSON()
+    {
+        $json = array();
+        $json['fields'] = array();
+        $json['fields']['project']= array("id" => $this->project->getId());
+        $json['fields']['summary'] = $this->summary;
+        $json['fields']['issuetype'] = array("id" => $this->issueType->getId());
+        $json['fields']['assignee'] = array("name" => $this->assignee->getName());
+        $json['fields']['reporter'] = array("name" => $this->reporter->getName());
+        $json['fields']['labels'] = $this->labels;
+        $json['fields']['description'] = $this->description;
+
+        return $json;
     }
 
     /**
@@ -89,6 +111,27 @@ class Issue
     }
 
     /**
+     * @param string $description
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+
+    /**
      * @param \GorkaLaucirica\JiraApiClient\Model\IssueType $issueType
      *
      * @return self
@@ -127,6 +170,46 @@ class Issue
     {
         return $this->key;
     }
+
+    /**
+     * @param mixed $labels
+     *
+     * @return self
+     */
+    public function setLabels($labels)
+    {
+        $this->labels = $labels;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLabels()
+    {
+        return $this->labels;
+    }
+
+    /**
+     * @param \GorkaLaucirica\JiraApiClient\Model\Project $project
+     *
+     * @return self
+     */
+    public function setProject(Project $project)
+    {
+        $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * @return \GorkaLaucirica\JiraApiClient\Model\Project
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+
 
     /**
      * @param User $reporter

@@ -44,4 +44,46 @@ class Client
 
         return json_decode($response->getContent(), true);
     }
+
+    public function post($resource, $content)
+    {
+        $curl = new Curl();
+        $browser = new Browser($curl);
+
+        $url = $this->baseUrl . $resource;
+
+        $headers = array(
+            'Content-Type' => 'application/json',
+            'Authorization' => $this->auth->getCredential()
+        );
+
+        $response = $browser->post($url, $headers, json_encode($content));
+
+        if($browser->getLastResponse()->getStatusCode() != 200) {
+            throw new BadRequestException($response);
+        }
+
+        return json_decode($response->getContent(), true);
+    }
+
+    public function put($resource, $content)
+    {
+        $curl = new Curl();
+        $browser = new Browser($curl);
+
+        $url = $this->baseUrl . $resource;
+
+        $headers = array(
+            'Content-Type' => 'application/json',
+            'Authorization' => $this->auth->getCredential()
+        );
+
+        $response = $browser->put($url, $headers, json_encode($content));
+
+        if($browser->getLastResponse()->getStatusCode() > 299) {
+            throw new BadRequestException($response);
+        }
+
+        return json_decode($response->getContent(), true);
+    }
 } 

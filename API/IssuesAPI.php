@@ -3,6 +3,7 @@
 namespace GorkaLaucirica\JiraApiClient\API;
 
 use GorkaLaucirica\JiraApiClient\Client;
+use GorkaLaucirica\JiraApiClient\Exception\BadRequestException;
 use GorkaLaucirica\JiraApiClient\Exception\NotImplementedException;
 use GorkaLaucirica\JiraApiClient\Model\Issue;
 
@@ -23,7 +24,20 @@ class IssuesAPI
 
     public function postIssue(Issue $issue)
     {
-        throw new NotImplementedException();
+        $response = $this->client->post("/issue", $issue->toJSON());
+
+        return $this->getIssue($response['id']);
+    }
+
+    public function putIssue(Issue $issue)
+    {
+        if (!$issue->getKey()) {
+            throw new BadRequestException('Invalid issue key');
+        }
+
+        $this->client->put("/issue/" . $issue->getKey(), $issue->toJSON());
+
+        return $this->getIssue($issue->getKey());
     }
 
     public function deleteIssue($id)
