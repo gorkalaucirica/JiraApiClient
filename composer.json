@@ -17,7 +17,8 @@
         "kriswallsmith/buzz": "0.10",
         "symfony/yaml": "2.5.*"
     },
+    "target-dir": "GorkaLaucirica/JiraApiClient",
     "autoload": {
-        "psr-0": { "GorkaLaucirica\\JiraApiClient\\": "" }
+        "psr-0": { "GorkaLaucirica\\JiraApiClient": "" }
     }
 }
