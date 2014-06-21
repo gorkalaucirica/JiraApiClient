@@ -33,7 +33,7 @@ class IssuesAPI
 
     public function searchIssues($jql)
     {
-        $response = $this->client->get('/search', array('jql' => $jql));
+        $response = $this->client->get('/search', array('jql' => urlencode($jql)));
 
         $issues = array();
         foreach ($response['issues'] as $jsonIssue) {

@@ -5,17 +5,19 @@ namespace GorkaLaucirica\JiraApiClient;
 use Buzz\Browser;
 use Buzz\Client\Curl;
 use GorkaLaucirica\JiraApiClient\Auth\AuthInterface;
+use GorkaLaucirica\JiraApiClient\Exception\BadRequestException;
 
 class Client
 {
     protected $baseUrl;
 
+    /** @var AuthInterface */
     protected $auth;
 
     public function __construct($baseUrl, AuthInterface $auth)
     {
         $this->baseUrl = $baseUrl;
-        $this->$auth = $auth;
+        $this->auth = $auth;
     }
 
     public function get($resource, $query = array())
@@ -35,6 +37,11 @@ class Client
         $headers = array("Authorization" => $this->auth->getCredential());
 
         $response = $browser->get($url, $headers);
+
+        if($browser->getLastResponse()->getStatusCode() != 200) {
+            throw new BadRequestException();
+        }
+
         return json_decode($response->getContent(), true);
     }
 } 
