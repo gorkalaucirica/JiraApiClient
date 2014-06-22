@@ -4,11 +4,13 @@ namespace GorkaLaucirica\JiraApiClient\API;
 
 use GorkaLaucirica\JiraApiClient\Client;
 use GorkaLaucirica\JiraApiClient\Exception\BadRequestException;
-use GorkaLaucirica\JiraApiClient\Exception\NotImplementedException;
 use GorkaLaucirica\JiraApiClient\Model\Issue;
 
 class IssuesAPI
 {
+    /** @var Client $client  */
+    protected $client;
+
     public function __construct(Client $client)
     {
         $this->client = $client;
