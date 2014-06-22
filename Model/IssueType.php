@@ -112,7 +112,7 @@ class IssueType
     }
 
     /**
-     * @param mixed $subtask
+     * @param boolean $subtask
      *
      * @return self
      */
@@ -124,7 +124,7 @@ class IssueType
     }
 
     /**
-     * @return mixed
+     * @return boolean
      */
     public function getSubtask()
     {

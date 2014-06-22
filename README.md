@@ -43,4 +43,8 @@ The recommended way to install JiraApiClient is through composer. Just create a 
     $issuesAPI = new IssuesAPI($client);
     $issue = $issuesAPI->postIssue($newIssue);
 
+##Tests
+
+    bin/phpspec run
+
 

@@ -26,6 +26,7 @@ class Issue
     /** @var  User */
     protected $reporter;
 
+    /** @var  IssueStatus */
     protected $status;
 
     protected $summary;
@@ -129,6 +130,8 @@ class Issue
     {
         return $this->description;
     }
+
+
 
 
     /**
