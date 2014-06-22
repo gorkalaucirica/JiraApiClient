@@ -14,6 +14,15 @@ class IssuesAPI
         $this->client = $client;
     }
 
+    /**
+     * Returns an Issue for the given id and matching the given query
+     *
+     * @param $id
+     * @param array $query Check the parameters accepted here: https://docs.atlassian.com/jira/REST/latest/#d2e1379
+     *                     For example: array('fields' => 'summary,comment')
+     *
+     * @return Issue
+     */
     public function getIssue($id, $query = array())
     {
         $response = $this->client->get("/issue/$id", $query);
@@ -22,6 +31,12 @@ class IssuesAPI
 
     }
 
+    /**
+     * Posts a new issue and returns a complete Issue object
+     *
+     * @param Issue $issue
+     * @return Issue
+     */
     public function postIssue(Issue $issue)
     {
         $response = $this->client->post("/issue", $issue->toJSON());
@@ -29,6 +44,14 @@ class IssuesAPI
         return $this->getIssue($response['id']);
     }
 
+    /**
+     * Updates an existing issue and returns a complete Issue object
+     *
+     * @param Issue $issue
+     *
+     * @throws BadRequestException when invalid issue key given
+     * @return Issue
+     */
     public function putIssue(Issue $issue)
     {
         if (!$issue->getKey()) {
@@ -40,11 +63,17 @@ class IssuesAPI
         return $this->getIssue($issue->getKey());
     }
 
-    public function deleteIssue($id)
-    {
-        throw new NotImplementedException();
-    }
+//    public function deleteIssue($id)
+//    {
+//        throw new NotImplementedException();
+//    }
 
+    /**
+     * Searches by jql query provided
+     *
+     * @param string $jql More info about jql: https://confluence.atlassian.com/display/JIRA/Advanced+Searching
+     * @return array Issue
+     */
     public function searchIssues($jql)
     {
         $response = $this->client->get('/search', array('jql' => urlencode($jql)));
@@ -53,6 +82,7 @@ class IssuesAPI
         foreach ($response['issues'] as $jsonIssue) {
             $issues[] = new Issue($jsonIssue);
         }
+
         return $issues;
     }
 } 

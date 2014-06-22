@@ -59,7 +59,7 @@ class Client
 
         $response = $browser->post($url, $headers, json_encode($content));
 
-        if($browser->getLastResponse()->getStatusCode() != 200) {
+        if($browser->getLastResponse()->getStatusCode() > 299) {
             throw new BadRequestException($response);
         }
 

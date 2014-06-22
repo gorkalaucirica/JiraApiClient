@@ -3,6 +3,8 @@ JiraApiClient
 
 PHP Library to process calls to JIRA's REST API
 
+[![Latest Stable Version](https://poser.pugx.org/gorkalaucirica/jira-api-client/v/stable.svg)](https://packagist.org/packages/gorkalaucirica/jira-api-client) [![Total Downloads](https://poser.pugx.org/gorkalaucirica/jira-api-client/downloads.svg)](https://packagist.org/packages/gorkalaucirica/jira-api-client) [![Latest Unstable Version](https://poser.pugx.org/gorkalaucirica/jira-api-client/v/unstable.svg)](https://packagist.org/packages/gorkalaucirica/jira-api-client) [![License](https://poser.pugx.org/gorkalaucirica/jira-api-client/license.svg)](https://packagist.org/packages/gorkalaucirica/jira-api-client) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/06f76af2-facb-4331-be37-ed2fb2d1fd1a/mini.png)](https://insight.sensiolabs.com/projects/06f76af2-facb-4331-be37-ed2fb2d1fd1a)
+
 *This package is work in progress and some functionality is not available yet.*
 
 
