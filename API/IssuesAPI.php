@@ -65,11 +65,6 @@ class IssuesAPI
         return $this->getIssue($issue->getKey());
     }
 
-//    public function deleteIssue($id)
-//    {
-//        throw new NotImplementedException();
-//    }
-
     /**
      * Searches by jql query provided
      *
